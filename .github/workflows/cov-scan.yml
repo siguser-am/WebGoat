@@ -33,6 +33,8 @@ jobs:
             set -x
             COVERITY_TOOL_HOME=/tmp/$CSA 
             
+            echo $COVERITY_TOOL_HOME/node/bin/node $COVERITY_TOOL_HOME/SARIF/cov-format-sarif-for-github.js --inputFile coverity-errors.json --outputFile coverity-errors.sarif --githubUrl $GITHUB_SERVER_URL --repoName $GITHUB_REPOSITORY --checkoutPath GITHUB_REPOSITORY $GITHUB_WORKSPACE $GITHUB_REF
+            
             curl -kfLsS --user ${{secrets.COV_USER}}:${{secrets.COV_PASSWORD}} ${{secrets.COV_URL}}/downloadFile.htm?fn=$CSA.tar.gz | tar -xzf - -C /tmp/
             curl -kfLsS --user ${{secrets.COV_USER}}:${{secrets.COV_PASSWORD}} -o license.dat ${{secrets.COV_URL}}/downloadFile.htm?fn=license.dat
             mv license.dat $COVERITY_TOOL_HOME/bin
